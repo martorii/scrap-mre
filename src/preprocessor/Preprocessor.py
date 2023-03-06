@@ -1,5 +1,4 @@
 from sklearn.base import TransformerMixin
-import py3langid as langid
 import pandas as pd
 
 
@@ -17,9 +16,6 @@ class Preprocessor(TransformerMixin):
     def transform(self, X, *_):        
         # Convert to lowercase
         X['cleaned_text'] = X['text'].str.lower()
-        
-        # Add language column
-        X['lang'] = X['cleaned_text'].apply(lambda x: langid.classify(x)[0])
 
         # Remove symbols
         X['cleaned_text'] = X['cleaned_text'].str.replace(r'[^a-z0-9 ]', ' ', regex=True)
